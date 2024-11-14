@@ -33,7 +33,7 @@ def main():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
             text = event.text.lower()
             user_id = event.user_id
-
+            # Приветствие бота
             if text == 'привет':
                 greeting_message = 'Я бот для знакомств. Нажми кнопку "Старт" чтобы начать.'
                 vk.messages.send(
@@ -62,7 +62,7 @@ def main():
                         keyboard=search_keyboard.get_keyboard(),
                         random_id=randint(1, 2 ** 31)
                     )
-
+            # Запуск поиска пользователей
             if text == 'начать поиск':
                 params_for_search_matches = get_params_from_vk_user_info(service_token=service_token, user_id=user_id)
                 sex = get_opposite_sex(params_for_search_matches['sex'])
@@ -91,7 +91,7 @@ def main():
                             keyboard=full_keyboard.get_keyboard(),
                             random_id=randint(1, 2 ** 31)
                         )
-
+            # Перемещение по найденным пользователям
             elif text == 'следующий':
                 if search_results and current_index < len(search_results) - 1:
                     current_index += 1
@@ -132,7 +132,7 @@ def main():
                         random_id=randint(1, 2 ** 31)
                     )
 
-
+            # Добавление неинтересующего пользователя в соответствующую таблицу БД, с целью исключения повторного поиска
             elif text == 'не интересует':
                 result = search_results[current_index]
                 not_interested_vk_id = result["user_match_id"]
@@ -152,7 +152,7 @@ def main():
                         keyboard=full_keyboard.get_keyboard(),
                         random_id=randint(1, 2 ** 31)
                     )
-
+            # Добавление интересующего пользователя в соответствующую таблицу БД (избранные)
             elif text == 'в избранное':
                 result = search_results[current_index]
                 favorite_vk_id = result["user_match_id"]
@@ -173,7 +173,7 @@ def main():
                         random_id=randint(1, 2 ** 31)
                     )
 
-
+            # Вывод в чат всех избранных пользователей
             elif text == 'показать избранное':
                 result = [user for user in search_results
                           if user["user_match_id"] in get_favorites(get_user_id_db(user_id))]
@@ -195,7 +195,7 @@ def main():
                         random_id=randint(1, 2 ** 31)
                     )
 
-
+            # Выход из бота
             elif text == 'выход':
                 vk.messages.send(
                     user_id=user_id,
