@@ -6,7 +6,7 @@ from vk_api import vk_api, exceptions
 
 from VKinder_db.database import get_not_interested_users_id
 
-
+# Получение параметров поиска на основании данных профиля пользователя ботом
 def get_params_from_vk_user_info(service_token: str, user_id: int) -> dict:
     params = {
         'access_token': service_token,
@@ -46,7 +46,7 @@ def get_params_from_vk_user_info(service_token: str, user_id: int) -> dict:
     except Exception as error:
         print(f'Unexpected error: {error}')
 
-
+# Получение пола, противоположного полу пользователя ботом
 def get_opposite_sex(sex_id: int) -> int:
     if sex_id == 1:
         return 2
@@ -55,7 +55,7 @@ def get_opposite_sex(sex_id: int) -> int:
     else:
         return 0
 
-
+# Получение топ-3 фото у найденных пользователей
 def get_top_three_photo_from_profile(user_id: int, service_token: str) -> list:
     params = {
         'access_token': service_token,
@@ -77,7 +77,7 @@ def get_top_three_photo_from_profile(user_id: int, service_token: str) -> list:
         print(f'Unexpected error: {error}')
 
 
-
+# Функция поиска пользователей по нужным параметрам
 def search_vk_users(sex: int, age: int, city: int, service_token: str, user_id_db: int):
     vk_session = vk_api.VkApi(token=service_token)
     vk = vk_session.get_api()

@@ -9,6 +9,7 @@ load_dotenv()
 Base = declarative_base()
 
 
+# Создание таблицы пользователей ботом
 class User(Base):
     __tablename__ = "users"
 
@@ -16,6 +17,7 @@ class User(Base):
     vk_id = Column(BigInteger, unique=True, nullable=False)
 
 
+# Создание таблицы неинтересующих пользователей
 class NotInterest(Base):
     __tablename__ = "not interested"
 
@@ -24,12 +26,14 @@ class NotInterest(Base):
     not_interested_vk_id = Column(BigInteger, unique=True, nullable=False)
 
 
+# Создание таблицы избранных пользователей
 class Favorite(Base):
     __tablename__ = 'favorites'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     favorite_vk_id = Column(BigInteger, unique=True, nullable=False)
+
 
 # Создание подключения к БД
 db_login = os.getenv('DB_LOGIN')

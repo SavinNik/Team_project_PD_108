@@ -1,18 +1,18 @@
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 
-
+# Клавиша старт
 def create_start_keyboard():
     keyboard = VkKeyboard(one_time=True)
     keyboard.add_button('СТАРТ', color=VkKeyboardColor.PRIMARY)
     return keyboard
 
-
+# Клавиша начать поиск
 def create_search_keyboard():
     keyboard = VkKeyboard(one_time=True)
     keyboard.add_button('Начать поиск', color=VkKeyboardColor.PRIMARY)
     return keyboard
 
-
+# Клавишы основной работы бота
 def create_full_keyboard():
     keyboard = VkKeyboard(one_time=False)
     keyboard.add_button('Предыдущий', color=VkKeyboardColor.SECONDARY)
